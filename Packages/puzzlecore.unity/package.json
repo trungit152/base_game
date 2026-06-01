@@ -1,0 +1,19 @@
+{
+  "name": "com.trungnhd.puzzlecore.unity",
+  "version": "0.1.0",
+  "displayName": "PuzzleCore Unity",
+  "description": "Adapter Unity cho PuzzleCore: composition root VContainer, clock dựa trên UnityEngine.Time, driver tick luồng game mỗi frame, và booster definition dạng ScriptableObject. Cần VContainer (jp.hadashikick.vcontainer).",
+  "unity": "2022.3",
+  "keywords": [
+    "puzzle",
+    "framework",
+    "unity",
+    "vcontainer"
+  ],
+  "dependencies": {
+    "com.trungnhd.puzzlecore": "0.1.0"
+  },
+  "author": {
+    "name": "trungnhd"
+  }
+}

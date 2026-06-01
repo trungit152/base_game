@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Harness kiểm chứng headless cho trungnhd.puzzlecore.
+    Đây KHÔNG phải assembly Unity và KHÔNG phải project test-runner (mà là console Exe), nên có thể
+    chạy bằng `dotnet bin/Release/net9.0/Headless.dll` để né lỗi CET/shadow-stack mà test host và
+    apphost sinh ra gặp phải trên bản Windows này. Nó biên dịch core (engine-agnostic) THEO SOURCE để
+    chỉ có một nguồn sự thật duy nhất và không cần bước build của Unity. Cố tình KHÔNG tham chiếu
+    package adapter Unity (com.trungnhd.puzzlecore.unity) vì package đó cần UnityEngine + VContainer.
+  -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AssemblyName>Headless</AssemblyName>
+    <RootNamespace>trungnhd.puzzlecore.Headless</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Kéo core thuần C# vào theo source. Các file harless cục bộ được glob mặc định của SDK gom vào. -->
+    <Compile Include="..\..\Packages\com.trungnhd.puzzlecore\Runtime\**\*.cs" />
+  </ItemGroup>
+
+</Project>

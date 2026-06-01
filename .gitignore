@@ -104,3 +104,10 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# --- PuzzleKit: headless dev harness ---
+# Ignore its build output (these dirs are NOT top-level, so the rules above don't catch them).
+dev/Headless/bin/
+dev/Headless/obj/
+# But DO keep the hand-written harness project file (the Unity template ignores all *.csproj above).
+!dev/Headless/Headless.csproj
