@@ -33,6 +33,9 @@
 /[Aa]ssets/Plugins/Editor/JetBrains*
 # Jetbrains Rider personal-layer settings
 *.DotSettings.user
+# Jetbrains Rider/IntelliJ project folder — at the repo root OR accidentally
+# created inside Assets/ when a subfolder is opened directly as a project.
+.idea/
 
 # Visual Studio cache directory
 .vs/

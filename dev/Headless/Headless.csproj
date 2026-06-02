@@ -6,7 +6,7 @@
     chạy bằng `dotnet bin/Release/net9.0/Headless.dll` để né lỗi CET/shadow-stack mà test host và
     apphost sinh ra gặp phải trên bản Windows này. Nó biên dịch core (engine-agnostic) THEO SOURCE để
     chỉ có một nguồn sự thật duy nhất và không cần bước build của Unity. Cố tình KHÔNG tham chiếu
-    package adapter Unity (com.trungnhd.puzzlecore.unity) vì package đó cần UnityEngine + VContainer.
+    package adapter Unity (puzzlecore.unity) vì package đó cần UnityEngine + VContainer.
   -->
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -20,7 +20,9 @@
 
   <ItemGroup>
     <!-- Kéo core thuần C# vào theo source. Các file harless cục bộ được glob mặc định của SDK gom vào. -->
-    <Compile Include="..\..\Packages\com.trungnhd.puzzlecore\Runtime\**\*.cs" />
+    <Compile Include="..\..\Packages\puzzlecore\Runtime\**\*.cs" />
+    <!-- Input core thuần (recognizer + seam pointer). Adapter Unity (puzzleinput.unity) KHÔNG kéo vào vì cần UnityEngine. -->
+    <Compile Include="..\..\Packages\puzzlecore.input\Runtime\**\*.cs" />
   </ItemGroup>
 
 </Project>

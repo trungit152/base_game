@@ -1,0 +1,19 @@
+{
+    "name": "CatchHim",
+    "rootNamespace": "CatchHim",
+    "references": [
+        "trungnhd.puzzlecore",
+        "trungnhd.puzzlecore.Unity",
+        "trungnhd.puzzlecore.input",
+        "VContainer"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -15,8 +15,10 @@ namespace trungnhd.puzzlecore.Headless
             Console.WriteLine("=========================================");
 
             PuzzleScenarios.Run();
+            InputScenarios.Run();
             FlowScenarios.Run();
             BoosterScenarios.Run();
+            PoolScenarios.Run();
 
             Console.WriteLine();
             Console.WriteLine("RESULT: " + Asserts.Passed + " passed, " + Asserts.Failed + " failed");

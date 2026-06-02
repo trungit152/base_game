@@ -7,8 +7,8 @@ namespace trungnhd.puzzlecore.Flow.States
     /// <see cref="GameStateContext.ActivePuzzle"/> đã sẵn sàng.
     /// <para>
     /// Điểm mở rộng: override <see cref="CreatePuzzle"/> để dựng session cụ thể cho game của bạn (nó
-    /// nhận signal bus từ context). Hoặc gán <see cref="GameStateContext.ActivePuzzle"/> trước khi
-    /// vào state này.
+    /// nhận event bus từ context). Hoặc gán <see cref="GameStateContext.ActivePuzzle"/> trước khi vào
+    /// state này.
     /// </para>
     /// </summary>
     public class LoadingState : GameStateBase

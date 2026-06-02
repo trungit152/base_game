@@ -1,7 +1,7 @@
 # PuzzleCore Unity (`trungnhd.puzzlecore.Unity`)
 
-Adapter Unity cho [`com.trungnhd.puzzlecore`](../com.trungnhd.puzzlecore). Nó chứa phần code **DUY NHẤT**
-trong framework tham chiếu Unity hoặc DI container — mọi thứ còn lại vẫn engine-agnostic.
+Adapter Unity cho [`com.trungnhd.puzzlecore`](../puzzlecore). Nó chứa phần code **DUY NHẤT** trong
+framework tham chiếu Unity hoặc DI container — mọi thứ còn lại vẫn engine-agnostic.
 
 ## Nội dung
 
@@ -40,8 +40,8 @@ hiển diện cho `trungnhd.puzzlecore.Unity.asmdef`.)
 1. Gắn component `GameLifetimeScope` vào một GameObject trong scene.
 2. Tạo các lớp con `BoosterDefinitionAsset` cụ thể cho booster của bạn và kéo chúng vào list
    `Booster Definitions` của scope.
-3. Bấm Play — `GameFlowDriver` vào `BootState` và tick machine. Subscribe các signal
-   (`StateEnteredSignal`, `BoosterActivatedSignal`, …) từ UI để phản ứng.
+3. Bấm Play — `GameFlowDriver` vào `BootState` và tick machine. Subscribe các event
+   (`StateEnteredEvent`, `BoosterActivatedEvent`, …) từ UI để phản ứng.
 
 ## Vì sao VContainer chỉ nằm ở đây
 

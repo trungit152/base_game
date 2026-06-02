@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using trungnhd.puzzlecore.Boosters;
 using trungnhd.puzzlecore.Common;
+using trungnhd.puzzlecore.Events;
 using trungnhd.puzzlecore.Flow;
 using trungnhd.puzzlecore.Flow.States;
-using trungnhd.puzzlecore.Signals;
 using trungnhd.puzzlecore.Unity.Boosters;
 using trungnhd.puzzlecore.Unity.Flow;
 using trungnhd.puzzlecore.Unity.Time;
@@ -31,7 +31,7 @@ namespace trungnhd.puzzlecore.Unity.Composition
         protected override void Configure(IContainerBuilder builder)
         {
             // --- Hạ tầng core ---
-            builder.Register<ISignalBus, SignalBus>(Lifetime.Singleton);
+            builder.Register<IEventBus, EventBus>(Lifetime.Singleton);
             builder.Register<IClock, UnityClock>(Lifetime.Singleton);
 
             // --- Booster ---
@@ -41,7 +41,7 @@ namespace trungnhd.puzzlecore.Unity.Composition
             builder.Register<IBoosterService>(resolver => new BoosterService(
                     resolver.Resolve<IBoosterInventory>(),
                     definitions.ToDictionary(d => d.Id),
-                    resolver.Resolve<ISignalBus>(),
+                    resolver.Resolve<IEventBus>(),
                     resolver.Resolve<IClock>()),
                 Lifetime.Singleton);
 
@@ -56,7 +56,7 @@ namespace trungnhd.puzzlecore.Unity.Composition
 
             builder.Register<IGameStateMachine>(resolver =>
             {
-                var machine = new GameStateMachine(resolver.Resolve<ISignalBus>(), resolver.Resolve<IClock>());
+                var machine = new GameStateMachine(resolver.Resolve<IEventBus>(), resolver.Resolve<IClock>());
                 foreach (var state in resolver.Resolve<IReadOnlyList<IGameState>>())
                 {
                     machine.RegisterState(state);

@@ -1,8 +1,8 @@
 using System;
+using trungnhd.puzzlecore.Events;
 using trungnhd.puzzlecore.Flow;
-using trungnhd.puzzlecore.Flow.Signals;
+using trungnhd.puzzlecore.Flow.Events;
 using trungnhd.puzzlecore.Flow.States;
-using trungnhd.puzzlecore.Signals;
 using trungnhd.puzzlecore.Headless.Demo;
 using trungnhd.puzzlecore.Headless.Doubles;
 
@@ -22,20 +22,20 @@ namespace trungnhd.puzzlecore.Headless.Scenarios
 
         private static void HappyPath()
         {
-            var signals = new SignalBus();
+            var events = new EventBus();
             var clock = new ManualClock();
 
             int entered = 0;
-            signals.Subscribe<StateEnteredSignal>(_ => entered++);
+            events.Subscribe<StateEnteredEvent>(_ => entered++);
 
-            var puzzle = new CountdownSession(new CountdownRules(3, 10), signals);
-            var machine = new GameStateMachine(signals, clock, puzzle);
+            var puzzle = new CountdownSession(new CountdownRules(3, 10), events);
+            var machine = new GameStateMachine(events, clock, puzzle);
             RegisterStandardStates(machine);
 
             Asserts.Expect(machine.ChangeState<BootState>().IsSuccess, "enter Boot ok");
             machine.Tick(0);
             Asserts.Expect(machine.Current is MainMenuState, "Boot auto-advances to MainMenu on tick");
-            Asserts.ExpectEqual(2, entered, "two StateEntered signals fired (Boot, MainMenu)");
+            Asserts.ExpectEqual(2, entered, "two StateEntered events fired (Boot, MainMenu)");
 
             Asserts.Expect(machine.ChangeState<LoadingState>().IsSuccess, "MainMenu -> Loading ok");
             machine.Tick(0);
@@ -50,13 +50,13 @@ namespace trungnhd.puzzlecore.Headless.Scenarios
 
         private static void GuardsAndErrors()
         {
-            var signals = new SignalBus();
+            var events = new EventBus();
             var clock = new ManualClock();
 
-            StateTransitionRejectedSignal rejected = null;
-            signals.Subscribe<StateTransitionRejectedSignal>(s => rejected = s);
+            StateTransitionRejectedEvent rejected = null;
+            events.Subscribe<StateTransitionRejectedEvent>(e => rejected = e);
 
-            var machine = new GameStateMachine(signals, clock);
+            var machine = new GameStateMachine(events, clock);
             RegisterStandardStates(machine);
 
             machine.ChangeState<PlayingState>();
@@ -68,7 +68,7 @@ namespace trungnhd.puzzlecore.Headless.Scenarios
             Asserts.Expect(rejected != null
                            && rejected.FromState == typeof(PausedState)
                            && rejected.ToState == typeof(WinState),
-                "StateTransitionRejected signal carries the correct From/To");
+                "StateTransitionRejected event carries the correct From/To");
 
             var unreg = machine.ChangeState(typeof(UnregisteredState));
             Asserts.Expect(unreg.IsFailure, "changing to an unregistered state fails");

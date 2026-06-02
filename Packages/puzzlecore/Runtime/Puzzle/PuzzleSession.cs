@@ -1,19 +1,19 @@
 using System;
 using System.Collections.Generic;
 using trungnhd.puzzlecore.Common;
-using trungnhd.puzzlecore.Puzzle.Signals;
-using trungnhd.puzzlecore.Signals;
+using trungnhd.puzzlecore.Events;
+using trungnhd.puzzlecore.Puzzle.Events;
 
 namespace trungnhd.puzzlecore.Puzzle
 {
     /// <summary>
     /// Session puzzle cụ thể duy nhất: giữ state hiện tại, kiểm tra và áp dụng action qua
     /// <see cref="IPuzzleRules{TState,TAction}"/>, tính lại outcome cùng danh sách action hợp lệ, và
-    /// phát signal. Engine-agnostic và tất định.
+    /// phát event. Engine-agnostic và tất định.
     /// </summary>
     public class PuzzleSession<TState, TAction> : IPuzzleSession<TState, TAction>
     {
-        private readonly ISignalBus _signals;
+        private readonly IEventBus _events;
 
         public IPuzzleRules<TState, TAction> Rules { get; }
         public TState State { get; private set; }
@@ -22,10 +22,10 @@ namespace trungnhd.puzzlecore.Puzzle
 
         public bool IsTerminal => Outcome != PuzzleOutcome.Undecided;
 
-        public PuzzleSession(IPuzzleRules<TState, TAction> rules, ISignalBus signals)
+        public PuzzleSession(IPuzzleRules<TState, TAction> rules, IEventBus events)
         {
             Rules = rules ?? throw new ArgumentNullException(nameof(rules));
-            _signals = signals ?? throw new ArgumentNullException(nameof(signals));
+            _events = events ?? throw new ArgumentNullException(nameof(events));
             State = rules.InitialState;
             Recompute();
         }
@@ -46,10 +46,10 @@ namespace trungnhd.puzzlecore.Puzzle
             State = Rules.Apply(State, action);
             Recompute();
 
-            _signals.Publish(new PuzzleActionAppliedSignal(action, Outcome));
+            _events.Publish(new PuzzleActionAppliedEvent(action, Outcome));
             if (Outcome != previousOutcome)
             {
-                _signals.Publish(new PuzzleOutcomeChangedSignal(previousOutcome, Outcome));
+                _events.Publish(new PuzzleOutcomeChangedEvent(previousOutcome, Outcome));
             }
 
             return Result.Ok();
@@ -71,7 +71,7 @@ namespace trungnhd.puzzlecore.Puzzle
             Recompute();
             if (Outcome != previousOutcome)
             {
-                _signals.Publish(new PuzzleOutcomeChangedSignal(previousOutcome, Outcome));
+                _events.Publish(new PuzzleOutcomeChangedEvent(previousOutcome, Outcome));
             }
         }
 

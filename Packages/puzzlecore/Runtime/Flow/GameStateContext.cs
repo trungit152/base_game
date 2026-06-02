@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using trungnhd.puzzlecore.Common;
+using trungnhd.puzzlecore.Events;
 using trungnhd.puzzlecore.Puzzle;
-using trungnhd.puzzlecore.Signals;
 
 namespace trungnhd.puzzlecore.Flow
 {
@@ -11,7 +11,7 @@ namespace trungnhd.puzzlecore.Flow
     /// </summary>
     public sealed class GameStateContext
     {
-        public ISignalBus Signals { get; }
+        public IEventBus Events { get; }
         public IClock Clock { get; }
         public IGameStateMachine Machine { get; }
 
@@ -21,9 +21,9 @@ namespace trungnhd.puzzlecore.Flow
         /// <summary>Lối thoát cho dữ liệu riêng của game, truyền giữa các state mà không cần kế thừa context.</summary>
         public IDictionary<string, object> Blackboard { get; }
 
-        public GameStateContext(ISignalBus signals, IClock clock, IGameStateMachine machine)
+        public GameStateContext(IEventBus events, IClock clock, IGameStateMachine machine)
         {
-            Signals = signals;
+            Events = events;
             Clock = clock;
             Machine = machine;
             Blackboard = new Dictionary<string, object>();

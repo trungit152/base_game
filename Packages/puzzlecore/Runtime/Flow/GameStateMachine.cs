@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using trungnhd.puzzlecore.Common;
-using trungnhd.puzzlecore.Flow.Signals;
+using trungnhd.puzzlecore.Events;
+using trungnhd.puzzlecore.Flow.Events;
 using trungnhd.puzzlecore.Puzzle;
-using trungnhd.puzzlecore.Signals;
 
 namespace trungnhd.puzzlecore.Flow
 {
@@ -15,15 +15,15 @@ namespace trungnhd.puzzlecore.Flow
     public sealed class GameStateMachine : IGameStateMachine
     {
         private readonly Dictionary<Type, IGameState> _states = new Dictionary<Type, IGameState>();
-        private readonly ISignalBus _signals;
+        private readonly IEventBus _events;
         private readonly GameStateContext _context;
 
         public IGameState Current { get; private set; }
 
-        public GameStateMachine(ISignalBus signals, IClock clock, IPuzzleSession activePuzzle = null)
+        public GameStateMachine(IEventBus events, IClock clock, IPuzzleSession activePuzzle = null)
         {
-            _signals = signals ?? throw new ArgumentNullException(nameof(signals));
-            _context = new GameStateContext(signals, clock, this) { ActivePuzzle = activePuzzle };
+            _events = events ?? throw new ArgumentNullException(nameof(events));
+            _context = new GameStateContext(events, clock, this) { ActivePuzzle = activePuzzle };
         }
 
         public void RegisterState(IGameState state)
@@ -46,14 +46,14 @@ namespace trungnhd.puzzlecore.Flow
 
             if (Current != null && !Current.CanTransitionTo(stateType))
             {
-                _signals.Publish(new StateTransitionRejectedSignal(Current.GetType(), stateType, "rejected by guard"));
+                _events.Publish(new StateTransitionRejectedEvent(Current.GetType(), stateType, "rejected by guard"));
                 return Result.Fail("transition rejected by guard");
             }
 
             Current?.Exit(_context);
             Current = next;
             Current.Enter(_context);
-            _signals.Publish(new StateEnteredSignal(stateType));
+            _events.Publish(new StateEnteredEvent(stateType));
             return Result.Ok();
         }
 

@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
-using trungnhd.puzzlecore.Boosters.Signals;
+using trungnhd.puzzlecore.Boosters.Events;
 using trungnhd.puzzlecore.Common;
+using trungnhd.puzzlecore.Events;
 using trungnhd.puzzlecore.Puzzle;
-using trungnhd.puzzlecore.Signals;
 
 namespace trungnhd.puzzlecore.Boosters
 {
     /// <summary>
-    /// Điều phối việc kích hoạt booster: kiểm tra, trừ kho, áp dụng effect, và phát signal. Tổng quát
+    /// Điều phối việc kích hoạt booster: kiểm tra, trừ kho, áp dụng effect, và phát event. Tổng quát
     /// trên mọi puzzle — chỉ biết <see cref="IBoosterEffect"/> và <see cref="IPuzzleSession"/>, không
     /// bao giờ biết state cụ thể của puzzle. Trừ trước và hoàn lại nếu effect thất bại, nên với bên gọi
     /// thì kết quả mang tính nguyên tử (atomic).
@@ -17,18 +17,18 @@ namespace trungnhd.puzzlecore.Boosters
     {
         private readonly IBoosterInventory _inventory;
         private readonly IReadOnlyDictionary<string, IBoosterDefinition> _definitions;
-        private readonly ISignalBus _signals;
+        private readonly IEventBus _events;
         private readonly IClock _clock;
 
         public BoosterService(
             IBoosterInventory inventory,
             IReadOnlyDictionary<string, IBoosterDefinition> definitions,
-            ISignalBus signals,
+            IEventBus events,
             IClock clock)
         {
             _inventory = inventory ?? throw new ArgumentNullException(nameof(inventory));
             _definitions = definitions ?? throw new ArgumentNullException(nameof(definitions));
-            _signals = signals ?? throw new ArgumentNullException(nameof(signals));
+            _events = events ?? throw new ArgumentNullException(nameof(events));
             _clock = clock;
         }
 
@@ -58,7 +58,7 @@ namespace trungnhd.puzzlecore.Boosters
                 return Fail(boosterId, consume.Error);
             }
 
-            var context = new BoosterActivationContext(puzzle, _signals, _clock, args);
+            var context = new BoosterActivationContext(puzzle, _events, _clock, args);
             Result effect;
             try
             {
@@ -77,13 +77,13 @@ namespace trungnhd.puzzlecore.Boosters
             }
 
             var remaining = _inventory.GetCount(boosterId);
-            _signals.Publish(new BoosterActivatedSignal(boosterId, remaining));
+            _events.Publish(new BoosterActivatedEvent(boosterId, remaining));
             return BoosterActivationResult.Success(boosterId, remaining);
         }
 
         private BoosterActivationResult Fail(string boosterId, string reason)
         {
-            _signals.Publish(new BoosterActivationFailedSignal(boosterId, reason));
+            _events.Publish(new BoosterActivationFailedEvent(boosterId, reason));
             return BoosterActivationResult.Failure(boosterId, reason);
         }
     }

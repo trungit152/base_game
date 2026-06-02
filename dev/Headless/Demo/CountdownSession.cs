@@ -1,6 +1,6 @@
 using trungnhd.puzzlecore.Common;
+using trungnhd.puzzlecore.Events;
 using trungnhd.puzzlecore.Puzzle;
-using trungnhd.puzzlecore.Signals;
 
 namespace trungnhd.puzzlecore.Headless.Demo
 {
@@ -11,7 +11,7 @@ namespace trungnhd.puzzlecore.Headless.Demo
     /// </summary>
     public sealed class CountdownSession : PuzzleSession<CountdownState, CountdownAction>, IDecrementable
     {
-        public CountdownSession(CountdownRules rules, ISignalBus signals) : base(rules, signals)
+        public CountdownSession(CountdownRules rules, IEventBus events) : base(rules, events)
         {
         }
 

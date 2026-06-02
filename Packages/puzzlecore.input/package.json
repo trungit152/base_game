@@ -1,0 +1,16 @@
+{
+  "name": "com.trungnhd.puzzlecore.input",
+  "version": "0.1.0",
+  "displayName": "PuzzleCore Input",
+  "description": "Module input tuỳ chọn của họ PuzzleCore, dành cho game Unity: seam dòng con trỏ (IPointerSource) + các bộ nhận diện cử chỉ (swipe, …) là C# thuần (test headless được), kèm adapter UnityPointerSource bắt input qua Unity Input System (guard #if ENABLE_INPUT_SYSTEM). Yêu cầu com.unity.inputsystem khi muốn bắt input thật.",
+  "unity": "2022.3",
+  "keywords": [
+    "input",
+    "gesture",
+    "swipe",
+    "framework"
+  ],
+  "author": {
+    "name": "trungnhd"
+  }
+}
