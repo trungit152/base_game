@@ -7,12 +7,6 @@ using trungnhd.puzzlecore.Puzzle;
 
 namespace trungnhd.puzzlecore.Boosters
 {
-    /// <summary>
-    /// Điều phối việc kích hoạt booster: kiểm tra, trừ kho, áp dụng effect, và phát event. Tổng quát
-    /// trên mọi puzzle — chỉ biết <see cref="IBoosterEffect"/> và <see cref="IPuzzleSession"/>, không
-    /// bao giờ biết state cụ thể của puzzle. Trừ trước và hoàn lại nếu effect thất bại, nên với bên gọi
-    /// thì kết quả mang tính nguyên tử (atomic).
-    /// </summary>
     public sealed class BoosterService : IBoosterService
     {
         private readonly IBoosterInventory _inventory;

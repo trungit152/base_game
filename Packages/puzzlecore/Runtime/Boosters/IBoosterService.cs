@@ -3,7 +3,6 @@ using trungnhd.puzzlecore.Puzzle;
 
 namespace trungnhd.puzzlecore.Boosters
 {
-    /// <summary>Facade mà game/UI gọi để dùng một booster lên puzzle đang chạy.</summary>
     public interface IBoosterService
     {
         /// <summary>True nếu booster tồn tại, còn trong kho, và puzzle đang chạy & chưa kết thúc.</summary>

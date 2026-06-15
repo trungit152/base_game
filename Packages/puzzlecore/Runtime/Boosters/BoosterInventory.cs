@@ -4,8 +4,6 @@ using trungnhd.puzzlecore.Common;
 
 namespace trungnhd.puzzlecore.Boosters
 {
-    /// <summary>Kho trong bộ nhớ, khởi tạo từ danh sách definition đã biết (mỗi loại bắt đầu ở count 0).
-    /// Là chủ sở hữu duy nhất của các thay đổi stock booster.</summary>
     public sealed class BoosterInventory : IBoosterInventory
     {
         private readonly Dictionary<string, Booster> _boosters = new Dictionary<string, Booster>();

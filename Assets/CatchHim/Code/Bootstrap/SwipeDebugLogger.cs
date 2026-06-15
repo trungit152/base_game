@@ -5,7 +5,6 @@ using VContainer.Unity;
 
 namespace CatchHim
 {
-    /// <summary>Tạm thời: log mỗi cú vuốt nhận được để kiểm chứng input. Gỡ khi nối vào session.</summary>
     public sealed class SwipeDebugLogger : IStartable, IDisposable
     {
         private readonly ISwipeInput _input;

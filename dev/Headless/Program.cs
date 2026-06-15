@@ -19,6 +19,7 @@ namespace trungnhd.puzzlecore.Headless
             FlowScenarios.Run();
             BoosterScenarios.Run();
             PoolScenarios.Run();
+            ContainerScenarios.Run();
 
             Console.WriteLine();
             Console.WriteLine("RESULT: " + Asserts.Passed + " passed, " + Asserts.Failed + " failed");

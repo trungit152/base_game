@@ -3,15 +3,6 @@ using System.Collections.Generic;
 
 namespace trungnhd.puzzlecore.Pooling
 {
-    /// <summary>
-    /// Object pool generic thuần C#. Tạo mới qua <c>factory</c> khi pool rỗng, gọi callback
-    /// <c>onGet</c>/<c>onRelease</c> tại mỗi lần lấy/trả, và giới hạn theo <c>maxSize</c> (vượt quá thì
-    /// gọi <c>onDestroy</c> và bỏ phần tử thừa). Không phụ thuộc engine — test được headless.
-    /// <para>Nếu phần tử hiện thực <see cref="IPoolable"/>, pool tự gọi <c>OnGet</c>/<c>OnRelease</c>
-    /// (chạy trước callback tương ứng) — không cần truyền callback.</para>
-    /// <para>Lưu ý: pool không tự phát hiện việc Release cùng một phần tử hai lần — đó là trách nhiệm
-    /// của bên gọi.</para>
-    /// </summary>
     public sealed class ObjectPool<T> : IObjectPool<T> where T : class
     {
         private readonly Stack<T> _inactive;
@@ -45,7 +36,7 @@ namespace trungnhd.puzzlecore.Pooling
             _inactive = new Stack<T>();
         }
 
-        /// <summary>Tạo trước <paramref name="count"/> phần tử và đưa vào pool.</summary>
+        /// <summary>Tạo trước <paramref name="count"/> phần tử và đưa vào pool</summary>
         public void Prewarm(int count)
         {
             for (int i = 0; i < count; i++)
@@ -74,7 +65,7 @@ namespace trungnhd.puzzlecore.Pooling
             }
             else
             {
-                // Pool đã đầy -> huỷ phần tử thừa.
+                // Pool đã đầy => huỷ phần tử thừa
                 _onDestroy?.Invoke(item);
                 CountAll--;
             }

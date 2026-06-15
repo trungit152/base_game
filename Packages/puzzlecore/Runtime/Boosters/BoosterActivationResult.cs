@@ -1,7 +1,5 @@
 namespace trungnhd.puzzlecore.Boosters
 {
-    /// <summary>Kết quả của một lần thử kích hoạt: có kích hoạt được không, id booster, số lượng còn lại,
-    /// và thông điệp lỗi (nếu có).</summary>
     public readonly struct BoosterActivationResult
     {
         public bool Activated { get; }

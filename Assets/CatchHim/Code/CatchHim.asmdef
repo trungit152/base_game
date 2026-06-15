@@ -5,7 +5,8 @@
         "trungnhd.puzzlecore",
         "trungnhd.puzzlecore.Unity",
         "trungnhd.puzzlecore.input",
-        "VContainer"
+        "VContainer",
+        "UnityEngine.UI"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

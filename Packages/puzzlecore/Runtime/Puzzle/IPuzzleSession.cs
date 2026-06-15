@@ -2,11 +2,6 @@ using trungnhd.puzzlecore.Common;
 
 namespace trungnhd.puzzlecore.Puzzle
 {
-    /// <summary>
-    /// Góc nhìn KHÔNG generic của một puzzle đang chạy. Cho phép các hệ thống không biết
-    /// <c>TState</c>/<c>TAction</c> cụ thể — booster, flow state Playing, UI — quan sát và điều khiển
-    /// session. Đây là seam giúp hệ thống booster tách rời khỏi bất kỳ puzzle cụ thể nào.
-    /// </summary>
     public interface IPuzzleSession
     {
         PuzzleOutcome Outcome { get; }

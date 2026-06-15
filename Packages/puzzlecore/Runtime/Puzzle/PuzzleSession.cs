@@ -6,11 +6,6 @@ using trungnhd.puzzlecore.Puzzle.Events;
 
 namespace trungnhd.puzzlecore.Puzzle
 {
-    /// <summary>
-    /// Session puzzle cụ thể duy nhất: giữ state hiện tại, kiểm tra và áp dụng action qua
-    /// <see cref="IPuzzleRules{TState,TAction}"/>, tính lại outcome cùng danh sách action hợp lệ, và
-    /// phát event. Engine-agnostic và tất định.
-    /// </summary>
     public class PuzzleSession<TState, TAction> : IPuzzleSession<TState, TAction>
     {
         private readonly IEventBus _events;

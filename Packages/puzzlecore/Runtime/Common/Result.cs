@@ -1,10 +1,5 @@
 namespace trungnhd.puzzlecore.Common
 {
-    /// <summary>
-    /// Kết quả của một thao tác có thể thành công hoặc thất bại mà <i>không</i> trả về giá trị.
-    /// Dùng thay cho exception trong các luồng điều khiển <i>được dự kiến</i> (guard từ chối,
-    /// thiếu booster trong kho, action không hợp lệ) để chỗ gọi luôn tường minh và tất định.
-    /// </summary>
     public readonly struct Result
     {
         public bool IsSuccess { get; }

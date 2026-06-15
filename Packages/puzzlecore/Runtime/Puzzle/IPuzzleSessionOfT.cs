@@ -3,7 +3,6 @@ using trungnhd.puzzlecore.Common;
 
 namespace trungnhd.puzzlecore.Puzzle
 {
-    /// <summary>Góc nhìn có kiểu của một puzzle đang chạy, cho code sở hữu rules cụ thể.</summary>
     public interface IPuzzleSession<TState, TAction> : IPuzzleSession
     {
         TState State { get; }

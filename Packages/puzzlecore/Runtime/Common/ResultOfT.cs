@@ -1,9 +1,5 @@
 namespace trungnhd.puzzlecore.Common
 {
-    /// <summary>
-    /// Kết quả của một thao tác có trả về giá trị khi thành công. Tương tự <see cref="Result"/>.
-    /// Có chuyển đổi ngầm từ <typeparamref name="T"/> để trả về thành công gọn gàng hơn.
-    /// </summary>
     public readonly struct Result<T>
     {
         public bool IsSuccess { get; }

@@ -3,11 +3,6 @@ using System.Collections.Generic;
 
 namespace trungnhd.puzzlecore.Events
 {
-    /// <summary>
-    /// <see cref="IEventBus"/> mặc định: phát đồng bộ theo thứ tự đăng ký. Khi publish sẽ lặp trên
-    /// một bản snapshot của danh sách handler, nên việc subscribe/unsubscribe ngay trong lúc phát là
-    /// an toàn (re-entrancy). Cố tình đơn luồng — core mang tính tất định và chạy được headless.
-    /// </summary>
     public sealed class EventBus : IEventBus
     {
         private readonly Dictionary<Type, List<Delegate>> _handlers = new Dictionary<Type, List<Delegate>>();
@@ -40,7 +35,6 @@ namespace trungnhd.puzzlecore.Events
                 return;
             }
 
-            // Snapshot để handler có thể (un)subscribe trong lúc phát mà không làm hỏng vòng lặp.
             var snapshot = list.ToArray();
             for (int i = 0; i < snapshot.Length; i++)
             {
