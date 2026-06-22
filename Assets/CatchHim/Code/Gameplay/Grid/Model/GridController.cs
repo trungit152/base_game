@@ -24,10 +24,8 @@ namespace CatchHim.Gameplay.Grid
             _grid.CreateGridMap();
             _view.Build(_grid);
 
-            // Bind the view before spawning so it renders actors as they appear.
             _actorView.Bind(_grid, _actors);
 
-            // Terrain is built first, then occupants are placed on top of it.
             _actors.Spawn(ActorType.Thief, new Vector2Int(0, 0));
             _actors.Spawn(ActorType.Police, new Vector2Int(_grid.X - 1, _grid.Y - 1));
         }

@@ -50,20 +50,28 @@ namespace CatchHim.Gameplay.Actors
 
             return null;
         }
-
-        public bool TryMove(Actor actor, SwipeDirection direction)
+        
+        public void MoveAll(SwipeDirection direction)
         {
-            return TryMoveTo(actor, actor.Coordinate + ToDelta(direction));
+            Vector2Int delta = ToDelta(direction);
+            if (delta == Vector2Int.zero)
+                return;
+
+            foreach (var actor in _actors)
+                Slide(actor, delta);
         }
 
-        public bool TryMoveTo(Actor actor, Vector2Int target)
+        private void Slide(Actor actor, Vector2Int delta)
         {
-            if (!IsWalkable(target))
-                return false;
+            Vector2Int destination = actor.Coordinate;
+            while (IsWalkable(destination + delta))
+                destination += delta;
 
-            actor.MoveTo(target);
+            if (destination == actor.Coordinate)
+                return;
+
+            actor.MoveTo(destination);
             Moved?.Invoke(actor);
-            return true;
         }
 
         private bool IsWalkable(Vector2Int coordinate)

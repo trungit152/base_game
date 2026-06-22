@@ -13,7 +13,6 @@ namespace CatchHim
             builder.Register<GridManager>(Lifetime.Singleton);
             builder.Register<ActorManager>(Lifetime.Singleton);
 
-            // Input chain: Unity pointer source -> swipe recognizer (ISwipeInput).
             builder.RegisterInstance(SwipeConfig.Default);
             builder.Register<IPointerSource, UnityPointerSource>(Lifetime.Singleton);
             builder.Register<ISwipeInput, SwipeRecognizer>(Lifetime.Singleton);
@@ -22,7 +21,7 @@ namespace CatchHim
             builder.RegisterComponentInHierarchy<ActorViewManager>();
 
             builder.RegisterEntryPoint<GridController>();
-            builder.RegisterEntryPoint<ThiefInputController>();
+            builder.RegisterEntryPoint<ActorInputController>();
         }
     }
 }

@@ -32,7 +32,7 @@ namespace CatchHim.Gameplay.Grid
                 for (int height = 0; height < Y; height++)
                 {
                     Vector2 position = new Vector2(width*CellSize , height*CellSize) + Vector2.one * CellSize/2;
-                    if (width == 1 && height == 1)
+                    if (width == 0 && height == 1)
                     {
                         Cells[width, height] = new GridData(width, height, position, new WallCellState());
                     }
